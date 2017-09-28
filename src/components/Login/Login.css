@@ -1,0 +1,23 @@
+.loginForm {
+	margin: 20% auto;
+	width: 50%;
+	border: 1px solid lightblue;
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
+}
+
+.loginForm input {
+	width: 70%;
+	height: 24px;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.loginForm button {
+	width: 50%;
+	height: 36px;
+	border-radius: 5px;
+	cursor: pointer;
+    margin-top: 10px;
+}

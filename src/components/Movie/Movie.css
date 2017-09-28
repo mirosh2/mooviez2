@@ -1,0 +1,28 @@
+.movieContainer {
+	display: flex;
+	padding: 5px;
+}
+
+.movieImage, .movieDescription {
+	width: 50%;
+	box-sizing: border-box;
+}
+
+.movieImage img {
+	width: 100%;
+}
+
+.movieDescription {
+	padding: 10px;
+}
+
+.addComment {
+	width: 50%;
+    padding: 0 5px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.addComment textarea {
+	width: 100%;
+}

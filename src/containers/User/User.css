@@ -1,0 +1,18 @@
+.user > div {
+	display: flex;
+	align-items: center;
+}
+
+.user > div p {
+	font-weight: bold;
+}
+
+.user img {
+	width: 32px;
+	height: 32px;
+	padding: 5px;
+}
+
+.user {
+	margin: 0 5%;
+}

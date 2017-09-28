@@ -1,0 +1,17 @@
+.mainMenu {
+	display: flex;
+	list-style: none;
+}
+
+.mainMenu li{
+	padding: 5px 10px;
+}
+
+.mainMenu b{
+	color: red;
+}
+
+.activeMenu {
+	border: 1px solid blue;
+	border-radius: 5px;
+}

@@ -1,0 +1,11 @@
+.logo {
+	display: flex;
+	align-items: center;
+	margin: 0 5%;
+}
+
+.logo span {
+	font-size: 20px;
+	font-weight: bold;
+	padding: 5px;
+}
