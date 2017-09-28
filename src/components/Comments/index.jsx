@@ -5,43 +5,54 @@ import { Redirect } from 'react-router-dom';
 import Logo from '../../containers/Logo';
 import User from '../../containers/User';
 import UserMenu from '../../components/UserMenu';
-import Movies from '../../containers/Movies';
+
+import './Comments.css';
 
 class Comments extends Component {
+	
 	constructor(props) {
 		super(props);
 		
 		this.state = {
-			allMoviesLength: null,
-			commentedMovies: []
+			userComments: []
 		}
 	}
-
 
 	componentDidMount() {
 		const { comments } = this.props;
 
-		let commentedMovies = [];
+		let userComments = [];
 		
 		fetch('http://localhost:8000/movies')
 		.then(res => res.json())
 		.then(res => {
 
-			comments.forEach(comment => {
+			comments.forEach((comment, index) => {
 				const foundMovie = res.movies.find(movie => movie._id === comment.movieID);
-				if (foundMovie)
-					commentedMovies.push(foundMovie);
+				if (foundMovie) {
+					userComments.push(comment);
+					userComments[index].movieTitle = foundMovie.title;
+				}
 
 			});
 
-			this.setState({ commentedMovies: commentedMovies,
-							allMoviesLength: res.movies.length });
+			this.setState({ userComments: userComments });
 		})
 	}
+	
 	render() {
 
 		const { user } = this.props;
-		const { allMoviesLength, commentedMovies } = this.state;
+		const { userComments } = this.state;
+
+		const comments = userComments.map((comment, index) => 
+			( <div key={index} className="userComment">
+				 <p><b>{comment.movieTitle}</b></p>
+				 <p className="userComment_text">{comment.text}</p>
+				 <p className="userComment_date"><img src="/img/calendar.png" alt="date"/>&nbsp;{comment.date.split("T")[0]}</p>
+				 <p className="userComment_published">{comment.published ? null : "This comment is not approved by admin as now"}</p>
+			  </div>
+			))
 
 		if (!user.login) 
 			return <Redirect to="/"/>
@@ -58,9 +69,13 @@ class Comments extends Component {
 				
 				</div>
 				
-				<UserMenu moviesQuantity={allMoviesLength}/>
+				<UserMenu moviesQuantity={user.moviesLength}/>
 
-				<Movies moviesList={commentedMovies}/>
+				<div className="commentsContainer">
+
+					{comments}
+
+				</div> 
 
 			</div>
 			)

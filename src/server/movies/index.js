@@ -19,7 +19,7 @@ module.exports = function(app, Movie, Like, Comment) {
           }))
 
         let commentsRequests = data.map(movie => new Promise((resolve, reject) => {
-            Comment.find({ movieID: movie._id}, (commentErr, commentData) => {
+            Comment.find({ movieID: movie._id, published: true }, (commentErr, commentData) => {
               if (commentErr)
                 return res.send(500, { error: commentErr });
               resolve(commentData.length);

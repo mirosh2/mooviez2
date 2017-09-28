@@ -25,7 +25,7 @@ module.exports = function(app, Like) {
         if (likeAddError)
           return res.send(500, { addLikeError: likeAddError });
 
-        Like.find({ userID: userID }, (likeFindAllError, likes) => {
+        Like.find({}, (likeFindAllError, likes) => {
           if (likeFindAllError)
           return res.send(500, { likeFindAllError: likeFindAllError });
 
@@ -46,7 +46,7 @@ module.exports = function(app, Like) {
         if (likeRemoveError)
           return res.send(500, { addRemoveError: likeRemoveError });
 
-        Like.find({ userID: userID }, (likeFindAllError, likes) => {
+        Like.find({}, (likeFindAllError, likes) => {
           if (likeFindAllError)
           return res.send(500, { likeFindAllError: likeFindAllError });
 

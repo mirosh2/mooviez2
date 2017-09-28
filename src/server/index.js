@@ -92,6 +92,7 @@ require("./movies")(app, Movie, Like, Comment);
 require("./movie:id")(app, Movie);
 require("./likes:id")(app, Like);
 require("./comments:id")(app, Comment);
+require("./signup")(app, User);
 
 
 // running server on port from config

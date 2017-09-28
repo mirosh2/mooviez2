@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import { userLogin } from '../../actions/userLogin';
 import { userLikesLogin } from '../../actions/userLikesLogin';
@@ -77,6 +77,10 @@ class Login extends Component {
 
 		return (
 			<div>
+				<h1>Welcome to Mooviez</h1>
+        		<p>You rate matters</p>
+        		<div><img src="/img/logo.png" alt="logo"/></div>
+				
 				<form className="loginForm"
 					  method="POST"
 					  onSubmit={this.handleLoginForm}>
@@ -102,6 +106,8 @@ class Login extends Component {
 					<button type="submit"
 							onClick={this.handleLoginForm}>Sign In
 					</button>
+
+					<Link to="/signup">Sign Up</Link>
 
 				</form>
 

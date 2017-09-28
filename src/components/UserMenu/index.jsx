@@ -16,10 +16,10 @@ class UserMenu extends Component {
     let active;
     //eslint-disable-next-line
     switch (location.pathname) {
-      case "/main": { active = 1; break;}
-      case "/main/votes": { active = 2; break;}
-      case "/main/comments": { active = 3; break;}
-      case "/main/new": { active = 4; break;}
+      case "/movies": { active = 1; break;}
+      case "/votes": { active = 2; break;}
+      case "/comments": { active = 3; break;}
+      case "/new": { active = 4; break;}
     }
     return (
       <ul className="mainMenu">

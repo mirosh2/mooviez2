@@ -1,0 +1,30 @@
+.commentsContainer {
+	display: flex;
+    margin: 0 10px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.userComment {
+	border: 1px solid black;
+	box-sizing: border-box;
+	border-radius: 5px;
+	margin: 10px;
+    padding: 10px;
+}
+
+.userComment_published {
+	color: red;
+	font-size: 10px;
+	text-decoration: underline;
+}
+
+.userComment_date {
+	font-size: 12px;
+}
+
+.userComment_text {
+	font-style: italic;
+	font-size: 16px;
+}

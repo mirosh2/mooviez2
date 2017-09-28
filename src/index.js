@@ -13,6 +13,7 @@ import NewMovies from './containers/NewMovies';
 import Votes from './components/Votes';
 import Comments from './components/Comments';
 import Movie from './components/Movie';
+import SignUp from './components/SignUp';
 
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
@@ -33,6 +34,7 @@ ReactDOM.render(
                 <Route exact path='/votes' component={Votes} />
                 <Route exact path='/comments' component={Comments} />
                 <Route exact path='/movie/:id' component={Movie} />
+                <Route exact path='/signup' component={SignUp} />
 
         	 	<Route path='*' component={Login}/>
 

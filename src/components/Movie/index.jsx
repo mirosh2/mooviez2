@@ -12,7 +12,7 @@ import './Movie.css';
 
 class Movie extends Component {
 	constructor(props) {
-		super(props);
+		super(props); 
 		
 		this.state = {
 			movie: {},
@@ -84,7 +84,7 @@ class Movie extends Component {
 				})
 					.then(res => res.json())
 					.then(res => { 
-						userLikesUpdate(res);
+						userLikesUpdate(res.filter(like => like.userID === user.id));
 						this.setState({ likes: res })
 					})
 			}
@@ -99,7 +99,7 @@ class Movie extends Component {
 				})
 					.then(res => res.json())
 					.then(res => { 
-						userLikesUpdate(res);
+						userLikesUpdate(res.filter(like => like.userID === user.id));
 						this.setState({ likes: res })
 					})
 		}
@@ -146,11 +146,11 @@ class Movie extends Component {
 		const { movie, comments, likes, commentText } = this.state;
 
 		const movieLikesLength = likes.filter(like => like.movieID === movie._id).length;
-		const movieCommentsLength = comments.filter(comment => comment.movieID === movie._id).length;
+		
+		const movieCommentsLength = 
+			comments.filter(comment => (comment.movieID === movie._id)&&(comment.published === true)).length;
 
 		let allMovieComments = [];
-
-		console.log("comments", comments);
 
 		comments.forEach(comment => {
 			if (comment.published)
@@ -161,8 +161,6 @@ class Movie extends Component {
 					<p>{comment.text}></p>
 			 	  </div> ))
 		})
-
-		console.log("allMovieComments", allMovieComments);
 
 		if (!user.login) 
 			return <Redirect to="/"/>
