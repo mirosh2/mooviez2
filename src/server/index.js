@@ -1,3 +1,5 @@
+const path = require("path");
+
 // connecting, configurig and executing Express
 const express = require("express");
 const config = require('./config');
@@ -44,7 +46,7 @@ mongoose.connection.on("open", () => {
 
 // using parsers for requests
 app.use(cors());
-app.use(express.static("./public"));
+app.use(express.static(__dirname + '/../../public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(upload.any());
@@ -93,6 +95,13 @@ require("./movie:id")(app, Movie);
 require("./likes:id")(app, Like);
 require("./comments:id")(app, Comment);
 require("./signup")(app, User);
+
+app
+  .route('/')
+  .get((req, res) => {
+    console.log(__dirname+'/../../build/static/index.html'); // '/../public'
+    res.sendFile(__dirname+'/../../pubilc/index.html');
+  })
 
 
 // running server on port from config
