@@ -1,9 +1,13 @@
 .loginForm {
-	margin: 20% auto;
+	margin: 10px auto;
 	width: 50%;
 	border: 1px solid lightblue;
 	padding: 10px;
 	border-radius: 5px;
+	text-align: center;
+}
+
+.loginForm > p, .loginForm > h1, .loginForm > div {
 	text-align: center;
 }
 
