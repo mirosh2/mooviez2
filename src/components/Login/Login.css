@@ -7,7 +7,7 @@
 	text-align: center;
 }
 
-.loginForm > p, .loginForm > h1, .loginForm > div {
+.top > p, .top > h1, .top > div {
 	text-align: center;
 }
 
@@ -24,4 +24,10 @@
 	border-radius: 5px;
 	cursor: pointer;
     margin: 10px;
+}
+
+.loginError {
+	color: red;
+	font-size: 10px;
+	text-decoration: underline;
 }

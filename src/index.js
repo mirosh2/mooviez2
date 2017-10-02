@@ -14,6 +14,7 @@ import Votes from './components/Votes';
 import Comments from './components/Comments';
 import Movie from './components/Movie';
 import SignUp from './components/SignUp';
+import Profile from './components/Profile';
 
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
@@ -35,6 +36,7 @@ ReactDOM.render(
                 <Route exact path='/comments' component={Comments} />
                 <Route exact path='/movie/:id' component={Movie} />
                 <Route exact path='/signup' component={SignUp} />
+                <Route exact path='/profile' component={Profile} />
 
         	 	<Route path='*' component={Login}/>
 

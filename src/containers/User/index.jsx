@@ -18,7 +18,7 @@ class User extends Component {
           <p>{login}</p>
           <img src={userImage} alt="userImage"/>
         </div>
-        <Link to="/main/profile">Profile</Link><br/>
+        <Link to="/profile">Profile</Link><br/>
         <SignOut login={login}/>
       </div>
     );

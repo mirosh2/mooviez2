@@ -17,7 +17,9 @@ class Login extends Component {
 		this.state = {
 			login: "",
 			password: "",
-			auth: false
+			isUserAccepted: false,
+			isWrongLogin: false,
+			isWrongPassword: false
 		}
 
 		this.handleLoginInput = this.handleLoginInput.bind(this);
@@ -53,6 +55,22 @@ class Login extends Component {
 			 })
 			.then(res => res.json())
 			.then(res => {
+				if (res.message === "Wrong username") {
+					this.setState({ 
+						isWrongLogin: true,
+						login: ""
+					 });
+					return;
+				}
+
+				if (res.message === "Wrong password") {
+					this.setState({ 
+						isWrongPassword: true,
+						password: ""
+					 });
+					return;
+				}
+
 				const { login,
 				        isAdmin,
 				        lastLogin,
@@ -65,18 +83,26 @@ class Login extends Component {
 				userMoviesLogin(newMovies);
 				userLikesLogin(userLikes);
 				userCommentsLogin(userComments);
-				this.setState({ auth: true });
+				this.setState({ isUserAccepted: true });
 			});
 	}
 
 	render() {
-		const { auth, login, password } = this.state;
+		const { isUserAccepted, login, password, isWrongLogin, isWrongPassword } = this.state;
 
-		if (auth) 
+		if (isUserAccepted) 
 			return <Redirect to="/movies"/>
 
+		let loginStatus = null, passwordStatus = null;
+
+		if (isWrongLogin)
+			loginStatus = (<p className="loginError">Wrong username</p>);
+
+		if (isWrongPassword)
+			passwordStatus = (<p className="loginError">Wrong password</p>);
+
 		return (
-			<div>
+			<div className="top">
 				<h1>Welcome to Mooviez</h1>
         		<p>You rate matters</p>
         		<div><img src="/img/logo.png" alt="logo"/></div>
@@ -86,6 +112,7 @@ class Login extends Component {
 					  onSubmit={this.handleLoginForm}>
 					
 					<label><b>Login</b><br/>
+					{loginStatus}
 						<input  type="text"
 						  		name="login"
 						  		placeholder="Enter your awesome nickname"
@@ -96,6 +123,7 @@ class Login extends Component {
 					<br/>
 					<br/>
 					<label><b>Password</b><br/>
+					{passwordStatus}
 						<input  type="password"
 						  		name="password"
 						  		placeholder="Enter your secure password"

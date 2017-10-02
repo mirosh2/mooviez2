@@ -95,6 +95,7 @@ require("./movie:id")(app, Movie);
 require("./likes:id")(app, Like);
 require("./comments:id")(app, Comment);
 require("./signup")(app, User);
+require("./profile")(app, User);
 
 app
   .route('/')
