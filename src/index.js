@@ -15,6 +15,9 @@ import Comments from './components/Comments';
 import Movie from './components/Movie';
 import SignUp from './components/SignUp';
 import Profile from './components/Profile';
+import TopVotes from './components/TopVotes';
+import TopComments from './components/TopComments';
+import NewComments from './components/NewComments';
 
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
@@ -37,6 +40,9 @@ ReactDOM.render(
                 <Route exact path='/movie/:id' component={Movie} />
                 <Route exact path='/signup' component={SignUp} />
                 <Route exact path='/profile' component={Profile} />
+                <Route exact path='/topvotes' component={TopVotes} />
+                <Route exact path='/topcomments' component={TopComments} />
+                <Route exact path='/newcomments' component={NewComments} />
 
         	 	<Route path='*' component={Login}/>
 

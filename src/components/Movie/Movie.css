@@ -26,3 +26,25 @@
 .addComment textarea {
 	width: 100%;
 }
+
+.userComment {
+	border-bottom: 1px solid;
+}
+
+.userComment_header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.userComment_header p:first-child {
+	font-weight: bold;
+}
+
+.userComment_header p:last-child {
+	font-size: 10px;
+}
+
+.userComment_text {
+	font-style: italic;
+}

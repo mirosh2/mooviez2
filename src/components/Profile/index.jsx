@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import Logo from '../../containers/Logo';
 import User from '../../containers/User';
 import UserMenu from '../../components/UserMenu';
+import AdminMenu from '../../components/AdminMenu';
 
 import { userLogin } from '../../actions/userLogin';
 import { userLikesLogin } from '../../actions/userLikesLogin';
@@ -126,6 +127,9 @@ class Profile extends Component {
     if (isUserChanged)
     	return <Redirect to='/movies'/>
 
+    const menuType = user.isAdmin ? 
+			<AdminMenu moviesQuantity={user.moviesLength}/> : <UserMenu moviesQuantity={user.moviesLength}/>
+
     return (
       <div className="container">
 				
@@ -138,7 +142,7 @@ class Profile extends Component {
 				
 			</div>
 				
-			<UserMenu moviesQuantity={user.moviesLength}/>
+			{menuType}
     
         {userExists ? 
         	(<p>Sorry, this name is used by another person</p>) : null }

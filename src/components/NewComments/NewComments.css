@@ -1,0 +1,9 @@
+.newCommentsContainer {
+	padding: 0 10px;
+}
+
+.notPublishedComment {
+	border: 1px solid;
+    padding: 10px;
+    margin-bottom: 10px;
+}

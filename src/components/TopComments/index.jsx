@@ -4,11 +4,10 @@ import { Redirect } from 'react-router-dom';
 
 import Logo from '../../containers/Logo';
 import User from '../../containers/User';
-import UserMenu from '../../components/UserMenu';
 import Movies from '../../containers/Movies';
 import AdminMenu from '../../components/AdminMenu';
 
-class Main extends Component {
+class TopComments extends Component {
 
 	constructor(props) {
 		super(props);
@@ -21,8 +20,7 @@ class Main extends Component {
 
 	componentDidMount() {
 		
-		fetch('http://localhost:8000/movies', 
-			{ credentials: 'include' })
+		fetch('http://localhost:8000/movies')
 		.then(res => res.json())
 		.then(res => {
 			this.setState({ movies: res.movies });
@@ -34,11 +32,18 @@ class Main extends Component {
 		const { user } = this.props;
 		const { movies } = this.state;
 
-		const menuType = user.isAdmin ? 
-			<AdminMenu moviesQuantity={user.moviesLength}/> : <UserMenu moviesQuantity={user.moviesLength}/>
-
-		if (!user.login) 
+		
+		if (!user.login || user.isAdmin === false) 
 			return <Redirect to="/"/>
+
+		movies.sort((movie1, movie2) => {
+			if (movie1.comments < movie2.comments)
+				return 1;
+			if (movie1.comments > movie2.comments)
+				return -1;
+			if (movie1.comments === movie2.comments)
+				return 0;
+		})
 
 		return (
 			<div className="container">
@@ -52,7 +57,7 @@ class Main extends Component {
 				
 				</div>
 				
-				{menuType}
+				<AdminMenu moviesQuantity={user.moviesLength}/>
 
 				 <Movies moviesList={movies}/>
 
@@ -68,4 +73,4 @@ const mapStateToProps = state => {
 		}
 }
 
-export default Main = connect(mapStateToProps)(Main);
+export default TopComments = connect(mapStateToProps)(TopComments);

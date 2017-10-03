@@ -45,12 +45,16 @@ class Login extends Component {
 		
 		e.preventDefault();
 
+		console.log(login, password);
+
 		fetch('http://localhost:8000/login',
 			 { method: 'POST',
 			   headers: {
 			      'Accept': 'application/json',
 			      'Content-Type': 'application/json'
 			    },
+			   credentials: 'include',
+			   //mode: 'no-cors',
 			   body: JSON.stringify({login: login, password: password})
 			 })
 			.then(res => res.json())
@@ -130,7 +134,7 @@ class Login extends Component {
 						  		value={password}
 						  		onChange={this.handlePasswordInput}/>
 					</label>
-
+					<br/>
 					<button type="submit"
 							onClick={this.handleLoginForm}>Sign In
 					</button>

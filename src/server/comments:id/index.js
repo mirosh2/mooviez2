@@ -1,4 +1,4 @@
-module.exports = function(app, Comment) {
+module.exports = function(app, Comment, User) {
 
   app
     .route("/comments/:id")
@@ -10,8 +10,29 @@ module.exports = function(app, Comment) {
 
         if (err)
           return res.send(500, { error: err });
+
+        let userNameRequests = data.map(comment => new Promise((resolve, reject) => {
+            User.find({ _id: comment.userID}, (userErr, userData) => {
+              if (userErr)
+                return res.send(500, { error: userErr });
+              resolve(userData[0].login);
+            })
+          }))
+
+        Promise
+          .all(userNameRequests)
+          .then(usersData => {
+
+            let editedComments = [];
+
+            data.forEach((comment, index) => {
+                            editedComments[index] = {...comment._doc};
+                            editedComments[index].userName = usersData[index];
+                      })
+
+            res.send(editedComments);
+          })
       
-        return res.send(data);
       });
 
     })

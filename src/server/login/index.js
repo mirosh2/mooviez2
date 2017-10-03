@@ -8,6 +8,9 @@ module.exports = function(app, User, Comment, Movie, Like) {
       
       let lastLogin, currentUserID, isAdmin;
 
+      console.log("login",login);
+      console.log("password",password);
+
       if ((!login || !password)||((login.trim() === "")||(password.trim()==="")))
         res.status(400).send({ message: "Bad request" });
       

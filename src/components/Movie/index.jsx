@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import Logo from '../../containers/Logo';
 import User from '../../containers/User';
 import UserMenu from '../../components/UserMenu';
+import AdminMenu from '../../components/AdminMenu';
 import { userLikesUpdate } from '../../actions/userLikesUpdate';
 import { userCommentsUpdate } from '../../actions/userCommentsUpdate';
 
@@ -143,6 +144,12 @@ class Movie extends Component {
 
 		const { user } = this.props;
 
+		if (!user.login) 
+			return <Redirect to="/"/>
+
+		const menuType = user.isAdmin ? 
+			<AdminMenu moviesQuantity={user.moviesLength}/> : <UserMenu moviesQuantity={user.moviesLength}/>
+
 		const { movie, comments, likes, commentText } = this.state;
 
 		const movieLikesLength = likes.filter(like => like.movieID === movie._id).length;
@@ -152,18 +159,17 @@ class Movie extends Component {
 
 		let allMovieComments = [];
 
-		comments.forEach(comment => {
+		comments.forEach((comment, index) => {
 			if (comment.published)
 			allMovieComments.push(
-				( <div key={comment._id}>
-					<p>{comment.user}></p>
-					<p>{comment.date}></p>
-					<p>{comment.text}></p>
+				( <div key={index} className="userComment">
+					<div className="userComment_header">
+						<p>{comment.userName}</p>
+						<p>{comment.date.split("T")[0]}</p>
+					</div>
+					<p className="userComment_text">{comment.text}</p>
 			 	  </div> ))
 		})
-
-		if (!user.login) 
-			return <Redirect to="/"/>
 
 		return (
 			<div className="container">
@@ -177,7 +183,7 @@ class Movie extends Component {
 				
 				</div>
 				
-				<UserMenu moviesQuantity={user.moviesLength}/>
+				{menuType}
 
 				<div className="movieContainer">
 					<div className="movieImage">
@@ -212,7 +218,7 @@ class Movie extends Component {
 					<button onClick={this.addComment}>+ Add Comment</button>
 				</div>
 
-				<div>
+				<div className="newCommentsContainer">
 					{allMovieComments}
 				</div>
 

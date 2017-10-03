@@ -45,15 +45,15 @@ mongoose.connection.on("open", () => {
 
 
 // using parsers for requests
-app.use(cors());
+//app.use(cors());
 app.use(express.static(__dirname + '/../../public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(upload.any());
 app.use(cookieParser());
 app.use(expressSession({ secret: "mirosh2" }));
-//app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 // showing to console request URL for every request to server
@@ -62,17 +62,26 @@ app.use((req, res, next) => {
   next();
 });
 
-/*passport.serializeUser((user, done) => {
+
+
+passport.serializeUser((user, done) => {
+  console.log(user);
   done(null, user.login);
 });
 
-passport.deserializeUser((username, done) => {
-  User.findOne({ login }, done);
+passport.deserializeUser((login, done) => {
+  User.findOne({ login: login }, (err, user) => {
+    console.log(user);
+    done(err, user);
+  });
 });
 
 
-passport.use(new LocalStrategy((login, password, done) => {
-  User.findOne({ login }, (err, user) => {
+passport.use(new LocalStrategy(
+  { usernameField: 'login',
+  passwordField: 'password'},
+  (login, password, done) => {
+  User.findOne({ login: login }, (err, user) => {
     if(err)
       return done(err);
 
@@ -84,8 +93,23 @@ passport.use(new LocalStrategy((login, password, done) => {
 
     return done(null, user);
   });
-}));*/
+}));
 
+app.get("/*", (req, res, next) => {
+  
+  const { url, user } = req;
+
+  console.log(user);
+  console.log(url);
+
+  /*if(!user && url !== "/" && url !== "/signup")
+    return res.redirect("/");
+
+  if(user &&  url === "/signup")
+    return res.redirect("/");*/
+
+  next();
+});
 
 // connecting routes form modules
 require("./login")(app, User, Comment, Movie, Like);
@@ -93,14 +117,15 @@ require("./logout")(app, User);
 require("./movies")(app, Movie, Like, Comment);
 require("./movie:id")(app, Movie);
 require("./likes:id")(app, Like);
-require("./comments:id")(app, Comment);
+require("./comments:id")(app, Comment, User);
+require("./comments")(app, Comment, Movie, User);
 require("./signup")(app, User);
 require("./profile")(app, User);
 
+// routing for entering point (index.html) with react-app
 app
   .route('/')
   .get((req, res) => {
-    console.log(__dirname+'/../../build/static/index.html'); // '/../public'
     res.sendFile(__dirname+'/../../pubilc/index.html');
   })
 
