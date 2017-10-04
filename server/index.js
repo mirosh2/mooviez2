@@ -46,7 +46,7 @@ mongoose.connection.on("open", () => {
 
 // using parsers for requests
 //app.use(cors());
-app.use(express.static(__dirname + '/../../public'));
+app.use(express.static(__dirname + '/../app'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(upload.any());
@@ -126,7 +126,7 @@ require("./profile")(app, User);
 app
   .route('/')
   .get((req, res) => {
-    res.sendFile(__dirname+'/../../pubilc/index.html');
+    res.sendFile(__dirname+'/../app/index.html');
   })
 
 
